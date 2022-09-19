@@ -1,0 +1,45 @@
+.animation{
+     opacity: 10;
+     box-shadow: 0 0 20px white;
+}
+body{
+    background-color: purple;
+text-align:center;
+}
+.row {
+    display: flex;
+    justify-content: center;
+}
+h1{
+    color:white;
+font-weight:bold;
+    font-size:4.2rem;
+    font-family: sans-serif;
+padding:90px;  
+}
+
+.Btn{
+   height: 210px;
+   width: 210px;
+    border: solid black 10px;
+    border-radius:10%;
+margin:10px;
+
+}
+#red{
+    background-color:red;
+}
+
+#yellow{
+    background-color:yellow;
+}
+#green{
+    background-color: green;
+
+}
+#blue{
+    background-color:blue;
+}
+#bsBtn{
+    margin: 50px;
+}
