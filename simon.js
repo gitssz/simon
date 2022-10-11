@@ -6,13 +6,13 @@ var btnDiv=document.getElementsByClassName('Btn');
 var level=0;
 var started =false;
 
-// $(document).on('keypress',function(){
-//     if(started=false){
-//         $("h1").text="Level "+ level;
-//         nextSequence();
-//     started=true;
-//     }
-// });
+$(document).on('keypress',function(){
+    if(!started){
+        $("h1").text="Level "+ level;
+        nextSequence();
+    started=true;
+    }
+});
 
 function nextSequence()
 {   
@@ -35,26 +35,32 @@ $(".Btn").click(function(){
 })
 
 function checkAnswer(current){
-if(gamePattern[current]===userClickedPattern[current])
-{
-    // console.log("success");
-    if(gamePattern.length===userClickedPattern.length){
+    if(gamePattern[current]===userClickedPattern[current])
+    {
+        // console.log("success");
+        if(gamePattern.length===userClickedPattern.length){
+            setTimeout(function(){
+                level++;
+                nextSequence();
+            },1000);
+        }
+    }
+    else{
+        // console.log("fail");
+        playSound("wrong");
+        $("body").addClass('gameOver');
+        $("#title").text("Game Over Press any key to restart");
         setTimeout(function(){
-            level++;
-            nextSequence()
-        },1000);
+            $("body").removeClass('gameOver');
+        },100);
+        gameOver();
     }
 }
-else{
-    // console.log("fail");
-    playSound("wrong");
-    $("body").addClass('gameOver');
-    $("#title").text="Game Over Press Any Key to Restart";
-    setTimeout(function(){
-        $("body").removeClass('gameOver');
-    },100);
-    gameOver();
-}
+
+function gameOver(){
+    level=0;
+    gamePattern=[];
+    started=false;
 }
 
 function playSound(name){
@@ -63,19 +69,14 @@ function playSound(name){
  btnAudio.play();
 }
 
-function animatePress(currentColor)
-{$('#'+ currentColor).addClass('animation');
-setTimeout(function(){
-    $('#'+currentColor).removeClass('animation');
-},80)}
-
-function gameOver(){
-    level=0;
-    gamePattern=[];
-    started=false;
+function animatePress(currentColor){
+    $('#'+ currentColor).addClass('animation');
+    setTimeout(function(){
+        $('#'+currentColor).removeClass('animation');
+    },80)
 }
+
 document.getElementById("resetBtn").onclick=function(){
     level=0;
     $("h1").text="Press a key to start.";
 };
-$(document).on('keypress',nextSequence);
